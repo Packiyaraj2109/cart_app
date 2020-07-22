@@ -8,28 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: 'init',
-      onGenerateRoute: generateRoute,
+      home:LoginScreen(),
     );
-  }
-}
-
-Route<dynamic> generateRoute(RouteSettings settings) {
-  switch (settings.name) {
-   
-      case 'todoview':
-      return MaterialPageRoute( 
-        builder: (BuildContext context) {
-          return LoginScreen();
-        },
-      );
-
-      break;
-    default:
-      return MaterialPageRoute(
-        builder: (BuildContext context) {
-          return LoginScreen();
-        },
-      );
   }
 }
