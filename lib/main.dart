@@ -1,4 +1,5 @@
 
+import 'package:cart_app/src/assets/themes/theme.dart';
 import 'package:cart_app/src/ui/screens/login/login.dart';
 import 'package:cart_app/src/ui/screens/home/home.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: 'login',
+      theme: lightTheme(),
+      initialRoute: 'home',
       onGenerateRoute:generateRoute
     );
   }

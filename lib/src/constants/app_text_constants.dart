@@ -5,4 +5,5 @@ class AppTextConstants {
   static const String PASSWORD = 'Password';
   static const String USER_NAME = 'Username';
   static const String LOG_OUT = 'Log Out';
+  static const String Home = 'Home Page';
 }
