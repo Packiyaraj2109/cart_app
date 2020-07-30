@@ -1,36 +1,38 @@
 class ProductResponseModel {
-  List<ProductList> productList;
+  List<Fruits> fruits;
 
-  ProductResponseModel({this.productList});
+  ProductResponseModel({this.fruits});
 
   ProductResponseModel.fromJson(Map<String, dynamic> json) {
-    if (json['productList'] != null) {
-      productList = new List<ProductList>();
-      json['productList'].forEach((v) {
-        productList.add(new ProductList.fromJson(v));
+    if (json['fruits'] != null) {
+      fruits = new List<Fruits>();
+      json['fruits'].forEach((v) {
+        fruits.add(new Fruits.fromJson(v));
       });
     }
   }
 
+  int get length => null;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.productList != null) {
-      data['productList'] = this.productList.map((v) => v.toJson()).toList();
+    if (this.fruits != null) {
+      data['fruits'] = this.fruits.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class ProductList {
+class Fruits {
   String id;
   String name;
   String decription;
   String price;
   String image;
 
-  ProductList({this.id, this.name, this.decription, this.price, this.image});
+  Fruits({this.id, this.name, this.decription, this.price, this.image});
 
-  ProductList.fromJson(Map<String, dynamic> json) {
+  Fruits.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     decription = json['decription'];

@@ -131,7 +131,6 @@ class _LoginScreenState extends State<LoginScreen> {
     String username = _usernameController.text;
     String password = _passwordController.text;
     LoginResponseModel userList = await LoginRepository().fetchUser();
-    ProductResponseModel productList = await LoginRepository().fetchproducts();
     int index = userList.userList.indexWhere((UserList element) =>
         element.username == username && element.password == password);
     if (index != -1) {
