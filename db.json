@@ -88,35 +88,35 @@
         {
             "id": "1",
             "name": "Apple",
-            "decription": "Most recommented product",
+            "decription": "Apples promote heart health in several ways. They're high in soluble fiber, which helps lower cholesterol. They also have polyphenols, which are linked to lower blood pressure and stroke risk.",
             "price": "₹100.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/04/Apple-Fruit-Free-PNG-Image.png"
         },
         {
             "id": "2",
             "name": "Orange",
-            "decription": "Most recommented product",
+            "decription": "Orange, any of several species of small trees or shrubs of the genus Citrus of the family Rutaceae and their nearly round fruits, which have leathery and oily rinds and edible, juicy inner flesh.",
             "price": "₹120.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/05/Orange-PNG-Clipart.png"
         },
         {
             "id": "3",
             "name": "Grapes",
-            "decription": "Most recommented product",
-            "price": "110.00",
+            "decription": "Filled with Vitamin C and antioxidants, grapes can help to revitalize your skin. In fact, they can even protect your skin from cancer-causing ultraviolet radiation and free radicals that can, on a lesser scale, cause wrinkles and dark spots.",
+            "price": "₹110.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/04/Grape-PNG-HD.png"
         },
         {
             "id": "4",
             "name": "Banana",
-            "decription": "Most recommented product",
+            "decription": "Strawberries are bright red, juicy, and sweet. They're an excellent source of vitamin C and manganese and also contain decent amounts of folate (vitamin B9) and potassium. ",
             "price": "₹80.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/04/Banana-Free-PNG-Image.png"
         },
         {
             "id": "5",
             "name": "Strawberry",
-            "decription": "Most recommented product",
+            "decription": "Bananas are one of the most popular fruits in the world. They're full important nutrients, but eating too many could end up doing more harm than good. Too much of any single food may contribute to weight gain and nutrient deficiencies. One to two bananas per day is considered a moderate intake for most healthy people.",
             "price": "₹200.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/05/Strawberry-Free-Download-PNG.png"
         }
@@ -127,28 +127,28 @@
             {
                 "id": "1",
                 "name": "Carrot",
-                "decription": "Most recommented product",
+                "decription": "Carrots are full of vitamins, minerals and fibers that are good for your health. But eating too many carrots can bring in too much beta-carotene the molecule responsible for carrots' bright orange hue and a precursor of vitamin A. This can lead to excess blood carotene which can discolor the skin.",
                 "price": "₹100.00",
                 "image": "http://www.pngall.com/wp-content/uploads/2016/04/Carrot-Free-Download-PNG.png"
             },
             {
                 "id": "2",
                 "name": "Potato",
-                "decription": "Most recommented product",
+                "decription": "According to Harvard, the carbs in potatoes are the kind that the body digests rapidly and have a high glycemic load (or glycemic index). That is, they cause blood sugar and insulin to surge and then dip. This effect can make people feel hungry again soon after eating, which may lead to overeating.",
                 "price": "₹120.00",
                 "image": "http://www.pngall.com/wp-content/uploads/2016/04/Potato-PNG-Picture.png"
             },
             {
                 "id": "3",
                 "name": "Onion",
-                "decription": "Most recommented product",
-                "price": "110.00",
+                "decription": "The onions however were all dried out. You can just tell they absorbed toxins. And I know not everyone is a fan of their pungent smell but in that smell are high sulfur containing compounds which help release toxins from the liver (more on this below). ... Onions are a lot more powerful than meets the eye.",
+                "price": "₹110.00",
                 "image": "http://www.pngall.com/wp-content/uploads/2016/03/Onion-PNG-Clipart.png"
             },
             {
                 "id": "4",
                 "name": "Tomato",
-                "decription": "Most recommented product",
+                "decription": "Tomatoes are the major dietary source of the antioxidant lycopene, which has been linked to many health benefits, including reduced risk of heart disease and cancer.",
                 "price": "₹80.00",
                 "image": "http://www.pngall.com/wp-content/uploads/2016/04/Tomato-PNG-File.png"
             }

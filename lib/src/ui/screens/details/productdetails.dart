@@ -4,14 +4,20 @@ import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
-  ProductDetails({Key key}) : super(key: key);
-
+  final Map arguments;
+  ProductDetails({this.arguments, Key key}) : super(key: key);
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  Map productdetails;
   @override
+  void initState() {
+    productdetails = widget.arguments;
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -30,8 +36,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: AppImages.productimage(
                 width: double.maxFinite,
                 height: double.maxFinite,
-                imageurl:
-                    "http://www.pngall.com/wp-content/uploads/2016/04/Apple-Fruit-Free-PNG-Image.png"),
+                imageurl: productdetails['image']),
           ),
           Container(
             padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
@@ -39,13 +44,13 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Apple",
+                Text(productdetails['name'],
                     style: Theme.of(context).textTheme.headline6, maxLines: 1),
                 SizedBox(height: 12),
                 Container(
                   padding: EdgeInsets.only(top: 8, bottom: 16),
                   child: Text(
-                    "Apples promote heart health in several ways. They're high in soluble fiber, which helps lower cholesterol. They also have polyphenols, which are linked to lower blood pressure and stroke risk.",
+                    productdetails['description'],
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -56,7 +61,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Rs.300.00",
+                    Text(productdetails['price'],
                         style: Theme.of(context).primaryTextTheme.headline6),
                     FloatingActionButton.extended(
                       onPressed: () {},

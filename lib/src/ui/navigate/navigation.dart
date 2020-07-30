@@ -1,5 +1,6 @@
 
 import 'package:cart_app/src/assets/themes/theme.dart';
+import 'package:cart_app/src/ui/navigate/screen_routes.dart';
 import 'package:cart_app/src/ui/screens/cart/cart.dart';
 import 'package:cart_app/src/ui/screens/details/productdetails.dart';
 import 'package:cart_app/src/ui/screens/home/home.dart';
@@ -11,38 +12,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: lightTheme(),
-      initialRoute: 'home',
+      initialRoute: ScreenRoutes.HOMEPAGE,
       onGenerateRoute:generateRoute
     );
   }
 }
 
 
-
-  Route<dynamic> generateRoute(RouteSettings settings) {
+Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case 'login':
+    case ScreenRoutes.SIGNIN:
       return MaterialPageRoute(
         builder: (BuildContext context) {
           return LoginScreen();
         },
       );
       break;
-    case 'home':
+    case ScreenRoutes.HOMEPAGE:
       return MaterialPageRoute(
         builder: (BuildContext context) {
           return HomeScreen();
         },
       );
       break;
-    case 'details':
+    case ScreenRoutes.ITEMDETAILS:
       return MaterialPageRoute(
         builder: (BuildContext context) {
-          return ProductDetails();
+          return ProductDetails(arguments: settings.arguments);
         },
       );
       break;
-    case 'cart':
+    case ScreenRoutes.CART:
       return MaterialPageRoute(
         builder: (BuildContext context) {
           return CartScreen();

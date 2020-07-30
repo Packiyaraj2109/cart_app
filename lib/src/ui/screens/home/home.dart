@@ -1,8 +1,11 @@
 import 'package:cart_app/src/assets/styles/app_colors.dart';
 import 'package:cart_app/src/assets/styles/app_images.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
-import 'package:cart_app/src/data/repository/home/home_repositiort.dart';
-import 'package:cart_app/src/models/login/product_response_model.dart';
+import 'package:cart_app/src/data/repository/home/fruits_repository.dart';
+import 'package:cart_app/src/data/repository/home/vegetable_repository.dart';
+import 'package:cart_app/src/models/fruits/product_response_model.dart';
+import 'package:cart_app/src/models/vegetables/vegetable_response_model.dart';
+import 'package:cart_app/src/ui/navigate/screen_routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,8 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static bool _isPressed = false;
-  List<Fruits> products = [];
-  int lengthfruits;
+  List<Fruits> productFruits = [];
+  List<Vegetables> productVegetables = [];
   @override
   void initState() {
     datafetch();
@@ -22,12 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> datafetch() async {
-    ProductResponseModel productList =
-        await ProductRepository().fetchproducts();
+    FruitResponseModel fruitResponse = await FruitRepository().fetchproducts();
+    VegetabeResponseModel vegetableResponse =
+        await VegetableRepository().fetchproducts();
     setState(
       () {
-        products = productList.fruits;
-        lengthfruits = products.length;
+        productFruits = fruitResponse.fruits;
+        productVegetables = vegetableResponse.vegetables;
       },
     );
   }
@@ -50,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   PreferredSize _appbarBuild(BuildContext context) {
-    var navigator = Navigator;
     return PreferredSize(
       preferredSize: Size.fromHeight(110.0),
       child: AppBar(
@@ -117,18 +120,116 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   GridView vegetablesTabView() {
-    print("dsf$lengthfruits");
-    print("dsf$products");
     return GridView.count(
       crossAxisCount: 2,
       childAspectRatio: (9 / 10),
       children: List.generate(
-        products.length,
+        productVegetables.length,
         (index) {
-          Fruits productItem= products[index];
-          return Text(
-            productItem.name,
-            style: Theme.of(context).textTheme.headline2,
+          Vegetables productItem = productVegetables[index];
+          Map detailsArgument = {
+            'image': productItem.image,
+            'name': productItem.name,
+            'description': productItem.decription,
+            'price': productItem.price
+          };
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                  ScreenRoutes.ITEMDETAILS,
+                  arguments: detailsArgument),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.0),
+                  ),
+                  color: AppColors.gridbackground,
+                ),
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 25,
+                        bottom: 8,
+                        left: 25,
+                        right: 15,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AppImages.productimage(
+                            width: 120,
+                            height: 100,
+                            imageurl: productItem.image,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                productItem.name,
+                                style: Theme.of(context).textTheme.headline3,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                productItem.price,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        icon: new Icon(
+                          Icons.favorite_border,
+                          color: (_isPressed) ? Colors.green : Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(
+                            () {
+                              _isPressed = !_isPressed;
+                            },
+                          );
+                        },
+                      ),
+                      alignment: Alignment.topRight,
+                    ),
+                    Align(
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        child: Icon(
+                          Icons.shop,
+                          size: 20.0,
+                          color: AppColors.iconColor,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0),
+                          ),
+                          color: AppColors.iconbox,
+                        ),
+                      ),
+                      alignment: Alignment.bottomRight,
+                    )
+                  ],
+                ),
+              ),
+            ),
           );
         },
       ),
@@ -140,107 +241,115 @@ class _HomeScreenState extends State<HomeScreen> {
       crossAxisCount: 2,
       childAspectRatio: (9 / 10),
       children: List.generate(
-        products.length,
+        productFruits.length,
         (index) {
-          return
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
-            onTap: () => Navigator.of(context).pushNamed("details"),
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.0),
+          Fruits productItem = productFruits[index];
+          Map detailsArgument = {
+            'image': productItem.image,
+            'name': productItem.name,
+            'description': productItem.decription,
+            'price': productItem.price
+          };
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context).pushNamed(
+                  ScreenRoutes.ITEMDETAILS,
+                  arguments: detailsArgument),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.0),
+                  ),
+                  color: AppColors.gridbackground,
                 ),
-                color: AppColors.gridbackground,
-              ),
-              child: Stack(
-                overflow: Overflow.visible,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 25,
-                      bottom: 8,
-                      left: 25,
-                      right: 15,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        AppImages.productimage(
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 25,
+                        bottom: 8,
+                        left: 25,
+                        right: 15,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          AppImages.productimage(
                             width: 120,
                             height: 100,
-                            imageurl:
-                                'http://www.pngall.com/wp-content/uploads/2016/04/Apple-Fruit-Free-PNG-Image.png'),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              "Apple",
-                              style: Theme.of(context).textTheme.headline3,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "₹100.00",
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline5,
-                            ),
-                          ],
+                            imageurl: productItem.image,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                productItem.name,
+                                style: Theme.of(context).textTheme.headline3,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                productItem.price,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      child: IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        icon: new Icon(
+                          Icons.favorite_border,
+                          color: (_isPressed) ? Colors.green : Colors.grey,
                         ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    child: IconButton(
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      icon: new Icon(
-                        Icons.favorite_border,
-                        color: (_isPressed) ? Colors.green : Colors.grey,
+                        onPressed: () {
+                          setState(
+                            () {
+                              _isPressed = !_isPressed;
+                            },
+                          );
+                        },
                       ),
-                      onPressed: () {
-                        setState(
-                          () {
-                            _isPressed = !_isPressed;
-                          },
-                        );
-                      },
+                      alignment: Alignment.topRight,
                     ),
-                    alignment: Alignment.topRight,
-                  ),
-                  Align(
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      child: Icon(
-                        Icons.shop,
-                        size: 20.0,
-                        color: AppColors.iconColor,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0),
-                          bottomRight: Radius.circular(8.0),
+                    Align(
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        child: Icon(
+                          Icons.shop,
+                          size: 20.0,
+                          color: AppColors.iconColor,
                         ),
-                        color: AppColors.iconbox,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0),
+                          ),
+                          color: AppColors.iconbox,
+                        ),
                       ),
-                    ),
-                    alignment: Alignment.bottomRight,
-                  )
-                ],
+                      alignment: Alignment.bottomRight,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-        })
-
-      
+          );
+        },
+      ),
     );
   }
 

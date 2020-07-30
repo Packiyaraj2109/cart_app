@@ -2,7 +2,7 @@ import 'package:cart_app/src/assets/styles/app_colors.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:cart_app/src/data/repository/login/login_repository.dart';
 import 'package:cart_app/src/models/login/login_response_model.dart';
-import 'package:cart_app/src/models/login/product_response_model.dart';
+import 'package:cart_app/src/models/fruits/product_response_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
