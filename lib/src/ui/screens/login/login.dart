@@ -1,9 +1,9 @@
 import 'package:cart_app/src/assets/styles/app_colors.dart';
+import 'package:cart_app/src/blocs/login/login_bloc.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
-import 'package:cart_app/src/data/repository/login/login_repository.dart';
-import 'package:cart_app/src/models/login/login_response_model.dart';
 import 'package:cart_app/src/ui/navigate/screen_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -15,6 +15,27 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  LoginBloc _loginBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _loginBloc = BlocProvider.of<LoginBloc>(context);
+      _loginBloc.listen(loginBlocListener);
+    });
+  }
+
+  Future<void> loginBlocListener(LoginState state) async {
+    if (state is LoginValidateSuccessState) {
+      Navigator.of(context).pop();
+      Navigator.of(context).pushNamed(ScreenRoutes.HOMEPAGE);
+    } else if (state is LoginFailedFailedState) {
+      _scaffoldKey.currentState.removeCurrentSnackBar();
+      _showScaffold(state.msg);
+    }
+  }
 
   bool passwordVisible = true;
   @override
@@ -40,7 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 color: AppColors.gridbackground,
               ),
               width: double.infinity,
-              padding: EdgeInsets.only(left: 40, right: 40,top:16,bottom:16),
+              padding:
+                  EdgeInsets.only(left: 40, right: 40, top: 16, bottom: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -136,16 +158,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _dataFetch() async {
     String username = _usernameController.text;
     String password = _passwordController.text;
-    LoginResponseModel userList = await LoginRepository().fetchUser();
-    int index = userList.userList.indexWhere((UserList element) =>
-        element.username == username && element.password == password);
-    if (index != -1) {
-      Navigator.of(context).pop();
-      Navigator.of(context).pushNamed(ScreenRoutes.HOMEPAGE);
-    } else {
-      _scaffoldKey.currentState.removeCurrentSnackBar();
-      _showScaffold(AppTextConstants.LoginErrorMsg);
-    }
+
+    _loginBloc.add(LoginValidationEvent(username, password));
+
+    // LoginResponseModel userList = await LoginRepository().fetchUser();
+    // int index = userList.userList.indexWhere((UserList element) =>
+    //     element.username == username && element.password == password);
+    // if (index != -1) {
+    //   // Navigator.of(context).pop();
+    //   // Navigator.of(context).pushNamed(ScreenRoutes.HOMEPAGE);
+    // } else {
+    //   _scaffoldKey.currentState.removeCurrentSnackBar();
+    //   _showScaffold(AppTextConstants.LoginErrorMsg);
+    // }
   }
 
   _showScaffold(String message) {
