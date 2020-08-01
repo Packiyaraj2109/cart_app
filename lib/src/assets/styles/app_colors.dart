@@ -14,4 +14,8 @@ class AppColors {
   static Color boldtextColor = Colors.orange;
   static Color gridbackground=Colors.white;
   static Color transparent=Colors.transparent;
+  static Color notification=Colors.red;
+  static Color tabselected=Colors.black;
+  static Color tabunselected=Colors.grey;
+  static Color dividercolor=Color(0xFFE0E0E0);
 }

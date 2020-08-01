@@ -12,5 +12,7 @@ class AppTextConstants {
   static const String Cart = 'Cart';
   static const String Addtocart = 'Add To Cart';
   static const String Purchase = 'Purchase';
+  static const String Dismiss = 'Dismiss';
+  static const String LoginErrorMsg ='UserId & Password Not Matching';
 
 }

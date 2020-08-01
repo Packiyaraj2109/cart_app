@@ -4,14 +4,14 @@ import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:cart_app/src/models/common/product_details_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductDetails extends StatefulWidget {
+class ProductDetailsScreen extends StatefulWidget {
   final ProductDetailsModel arguments;
-  ProductDetails({this.arguments, Key key}) : super(key: key);
+  ProductDetailsScreen({this.arguments, Key key}) : super(key: key);
   @override
-  _ProductDetailsState createState() => _ProductDetailsState();
+  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   ProductDetailsModel productdetails;
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                 ),
                 Divider(
-                  color: Colors.grey[300],
+                  color: AppColors.dividercolor,
                   thickness: 0.5,
                 ),
                 Row(
@@ -76,11 +76,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: AppColors.iconColor,
                         ),
                         decoration: BoxDecoration(
-                            color: Colors.green,
+                            color: AppColors.iconbox,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(25))),
                       ),
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.gridbackground,
                       elevation: 0,
                     )
                   ],
@@ -118,9 +118,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     size: 20.0,
                     color: AppColors.iconColor2,
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
+                  onPressed: () => _cartExit(),
+                  splashColor: AppColors.transparent,
+                  highlightColor: AppColors.transparent,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(
@@ -142,5 +142,9 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
     );
+  }
+
+  _cartExit() {
+    Navigator.of(context).pop();
   }
 }

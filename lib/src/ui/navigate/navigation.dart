@@ -38,7 +38,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ScreenRoutes.ITEMDETAILS:
       return MaterialPageRoute(
         builder: (BuildContext context) {
-          return ProductDetails(arguments: settings.arguments);
+          return ProductDetailsScreen(arguments: settings.arguments);
         },
       );
       break;

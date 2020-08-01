@@ -16,7 +16,7 @@ class HttpClient {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception("not loaded");
+      throw Exception('not loaded');
     }
   }
 
@@ -30,7 +30,7 @@ class HttpClient {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception("not loaded");
+      throw Exception('not loaded');
     }
   }
 }

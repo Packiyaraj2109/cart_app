@@ -31,8 +31,7 @@ class _CartScreenState extends State<CartScreen> {
   _cartTotalAmount() {
     cartTotal = 0;
     for (int i = 0; i < cartFullList.length; i++) {
-      String price2 = cartFullList[i].price.substring(1);
-      double price = double.parse(price2);
+      double price = double.parse(cartFullList[i].price.substring(1));
       int quantity = cartFullList[i].count;
       cartTotal = cartTotal + (price * quantity);
     }
@@ -302,7 +301,7 @@ class _CartScreenState extends State<CartScreen> {
         content: Text(message),
         duration: new Duration(seconds: 1),
         action: SnackBarAction(
-          label: "Dismiss",
+          label: AppTextConstants.Dismiss,
           textColor: Colors.blue,
           onPressed: () {
             scaffoldkey.currentState.hideCurrentSnackBar();
