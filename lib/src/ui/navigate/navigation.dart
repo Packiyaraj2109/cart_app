@@ -45,7 +45,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ScreenRoutes.CART:
       return MaterialPageRoute(
         builder: (BuildContext context) {
-          return CartScreen();
+          return CartScreen(arguments: settings.arguments);
         },
       );
       break;

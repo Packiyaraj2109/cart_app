@@ -1,13 +1,15 @@
+import 'package:cart_app/src/models/common/product_details_model.dart';
+
 class VegetabeResponseModel {
-  List<Vegetables> vegetables;
+  List<ProductDetailsModel> vegetables;
 
   VegetabeResponseModel({this.vegetables});
 
   VegetabeResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['vegetables'] != null) {
-      vegetables = new List<Vegetables>();
+      vegetables = new List<ProductDetailsModel>();
       json['vegetables'].forEach((v) {
-        vegetables.add(new Vegetables.fromJson(v));
+        vegetables.add(new ProductDetailsModel.fromJson(v));
       });
     }
   }
@@ -17,34 +19,6 @@ class VegetabeResponseModel {
     if (this.vegetables != null) {
       data['vegetables'] = this.vegetables.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Vegetables {
-  String id;
-  String name;
-  String decription;
-  String price;
-  String image;
-
-  Vegetables({this.id, this.name, this.decription, this.price, this.image});
-
-  Vegetables.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    decription = json['decription'];
-    price = json['price'];
-    image = json['image'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['decription'] = this.decription;
-    data['price'] = this.price;
-    data['image'] = this.image;
     return data;
   }
 }

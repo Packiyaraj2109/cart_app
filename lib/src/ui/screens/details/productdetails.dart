@@ -1,17 +1,18 @@
 import 'package:cart_app/src/assets/styles/app_colors.dart';
 import 'package:cart_app/src/assets/styles/app_images.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
+import 'package:cart_app/src/models/common/product_details_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatefulWidget {
-  final Map arguments;
+  final ProductDetailsModel arguments;
   ProductDetails({this.arguments, Key key}) : super(key: key);
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  Map productdetails;
+  ProductDetailsModel productdetails;
   @override
   void initState() {
     productdetails = widget.arguments;
@@ -36,7 +37,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: AppImages.productimage(
                 width: double.maxFinite,
                 height: double.maxFinite,
-                imageurl: productdetails['image']),
+                imageurl: productdetails.image),
           ),
           Container(
             padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
@@ -44,13 +45,13 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(productdetails['name'],
+                Text(productdetails.name,
                     style: Theme.of(context).textTheme.headline6, maxLines: 1),
                 SizedBox(height: 12),
                 Container(
                   padding: EdgeInsets.only(top: 8, bottom: 16),
                   child: Text(
-                    productdetails['description'],
+                    productdetails.decription,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -61,11 +62,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(productdetails['price'],
+                    Text(productdetails.price,
                         style: Theme.of(context).primaryTextTheme.headline6),
                     FloatingActionButton.extended(
                       onPressed: () {},
-                      label: Text('Add To Cart',
+                      label: Text(AppTextConstants.Addtocart,
                           style: Theme.of(context).textTheme.headline3),
                       icon: Container(
                         width: 40,

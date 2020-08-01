@@ -11,5 +11,6 @@ class AppTextConstants {
   static const String Products = 'Products';
   static const String Cart = 'Cart';
   static const String Addtocart = 'Add To Cart';
+  static const String Purchase = 'Purchase';
 
 }

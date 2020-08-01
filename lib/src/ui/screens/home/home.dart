@@ -3,9 +3,11 @@ import 'package:cart_app/src/assets/styles/app_images.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:cart_app/src/data/repository/home/fruits_repository.dart';
 import 'package:cart_app/src/data/repository/home/vegetable_repository.dart';
+import 'package:cart_app/src/models/common/product_details_model.dart';
 import 'package:cart_app/src/models/fruits/product_response_model.dart';
 import 'package:cart_app/src/models/vegetables/vegetable_response_model.dart';
 import 'package:cart_app/src/ui/navigate/screen_routes.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,8 +18,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static bool _isPressed = false;
-  List<Fruits> productFruits = [];
-  List<Vegetables> productVegetables = [];
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  List<ProductDetailsModel> productFruits = [];
+  List<ProductDetailsModel> cartitems = [];
+  List<ProductDetailsModel> productVegetables = [];
+
+  int cartCount = 0;
   @override
   void initState() {
     datafetch();
@@ -43,20 +50,26 @@ class _HomeScreenState extends State<HomeScreen> {
       length: 2,
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           backgroundColor: AppColors.appthemecolor,
           appBar: _appbarBuild(context),
-          body: TabBarView(
-            children: containers,
-          ),
+          body: _bodyBuild(containers),
         ),
       ),
     );
   }
 
+  TabBarView _bodyBuild(List<Widget> containers) {
+    return TabBarView(
+      children: containers,
+    );
+  }
+
   PreferredSize _appbarBuild(BuildContext context) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(110.0),
+      preferredSize: Size.fromHeight(130.0),
       child: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.appthemecolor,
         centerTitle: true,
         title: Container(
@@ -73,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => Navigator.of(context).pushNamed("cart"),
+                  onTap: _cartNavigator,
                   child: Stack(
                     children: [
                       Container(
@@ -92,19 +105,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Positioned(
-                        top: 4,
-                        right: 5.0,
-                        child: Icon(Icons.brightness_1,
-                            size: 14.0, color: Colors.black),
-                      ),
-                      Positioned(
-                        top: 5.5,
-                        right: 8.5,
-                        child: new Text("3",
-                            style: new TextStyle(
-                                color: Colors.white,
-                                fontSize: 10.0,
-                                fontWeight: FontWeight.bold)),
+                        right: 4,
+                        top: 5,
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.red),
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${cartitems.length}',
+                            style: TextStyle(
+                                fontSize: 8, color: AppColors.gridbackground),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -119,6 +133,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void _cartNavigator() async {
+    await Navigator.of(context)
+        .pushNamed(ScreenRoutes.CART, arguments: cartitems);
+    setState(
+      () {
+        cartCount = cartitems.length;
+      },
+    );
+  }
+
   GridView vegetablesTabView() {
     return GridView.count(
       crossAxisCount: 2,
@@ -126,19 +150,23 @@ class _HomeScreenState extends State<HomeScreen> {
       children: List.generate(
         productVegetables.length,
         (index) {
-          Vegetables productItem = productVegetables[index];
-          Map detailsArgument = {
-            'image': productItem.image,
-            'name': productItem.name,
-            'description': productItem.decription,
-            'price': productItem.price
-          };
+          ProductDetailsModel productItem = productVegetables[index];
+          // Map detailsArgument =productItem.toJson();
+          //  {
+          //   'id': productItem.id,
+          //   'image': productItem.image,
+          //   'name': productItem.name,
+          //   'description': productItem.decription,
+          //   'category': "vegatables",
+          //   'price': productItem.price,
+          //   'favourite': false,
+          //   'quantity': 1
+          // };
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                  ScreenRoutes.ITEMDETAILS,
-                  arguments: detailsArgument),
+              onTap: () => Navigator.of(context)
+                  .pushNamed(ScreenRoutes.ITEMDETAILS, arguments: productItem),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -195,12 +223,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         highlightColor: Colors.transparent,
                         icon: new Icon(
                           Icons.favorite_border,
-                          color: (_isPressed) ? Colors.green : Colors.grey,
+                          color: (productItem.favourite) ? Colors.green : Colors.grey,
                         ),
                         onPressed: () {
                           setState(
                             () {
-                              _isPressed = !_isPressed;
+                              productItem.favourite = !(productItem.favourite);
                             },
                           );
                         },
@@ -208,20 +236,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.topRight,
                     ),
                     Align(
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.shop,
-                          size: 20.0,
-                          color: AppColors.iconColor,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.0),
-                            bottomRight: Radius.circular(8.0),
+                      child: GestureDetector(
+                        onTap: () => _cartAdd(productItem),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          child: Icon(
+                            Icons.shop,
+                            size: 20.0,
+                            color: AppColors.iconColor,
                           ),
-                          color: AppColors.iconbox,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8.0),
+                              bottomRight: Radius.circular(8.0),
+                            ),
+                            color: AppColors.iconbox,
+                          ),
                         ),
                       ),
                       alignment: Alignment.bottomRight,
@@ -243,19 +274,23 @@ class _HomeScreenState extends State<HomeScreen> {
       children: List.generate(
         productFruits.length,
         (index) {
-          Fruits productItem = productFruits[index];
-          Map detailsArgument = {
-            'image': productItem.image,
-            'name': productItem.name,
-            'description': productItem.decription,
-            'price': productItem.price
-          };
+          ProductDetailsModel productItem = productFruits[index];
+          // Map detailsArgument =productItem.toJson();
+          //  {
+          //   'id': productItem.id,
+          //   'image': productItem.image,
+          //   'name': productItem.name,
+          //   'description': productItem.decription,
+          //   'category': "vegatables",
+          //   'price': productItem.price,
+          //   'favourite': false,
+          //   'quantity': 1
+          // };
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                  ScreenRoutes.ITEMDETAILS,
-                  arguments: detailsArgument),
+              onTap: () => Navigator.of(context)
+                  .pushNamed(ScreenRoutes.ITEMDETAILS, arguments: productItem),
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -312,12 +347,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         highlightColor: Colors.transparent,
                         icon: new Icon(
                           Icons.favorite_border,
-                          color: (_isPressed) ? Colors.green : Colors.grey,
+                          color: (productItem.favourite) ? Colors.green : Colors.grey,
                         ),
                         onPressed: () {
                           setState(
                             () {
-                              _isPressed = !_isPressed;
+                              productItem.favourite = !(productItem.favourite);
                             },
                           );
                         },
@@ -325,20 +360,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.topRight,
                     ),
                     Align(
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.shop,
-                          size: 20.0,
-                          color: AppColors.iconColor,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.0),
-                            bottomRight: Radius.circular(8.0),
+                      child: GestureDetector(
+                        onTap: () => _cartAdd(productItem),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          child: Icon(
+                            Icons.shop,
+                            size: 20.0,
+                            color: AppColors.iconColor,
                           ),
-                          color: AppColors.iconbox,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8.0),
+                              bottomRight: Radius.circular(8.0),
+                            ),
+                            color: AppColors.iconbox,
+                          ),
                         ),
                       ),
                       alignment: Alignment.bottomRight,
@@ -347,17 +385,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          );
-        },
-      ),
+          );}
+          
+          ),
     );
   }
+
+  _cartAdd(ProductDetailsModel productItem) {
+    int index = cartitems.indexWhere((element) => element.id == productItem.id);
+
+    if (index != -1) {
+      cartitems[index].count = cartitems[index].count + 1;
+      _showScaffold('${productItem.name} is already available in cart. Quantity: ${productItem.count}');
+    } else {
+      productItem.count = 1;
+      cartitems.add(productItem);
+      _showScaffold('${productItem.name} is added to cart');
+    }
+    setState(
+      () {
+        cartitems = cartitems;
+      },
+    );
+  }
+
 
   TabBar _tabbar() {
     return TabBar(
       tabs: [
         Container(
-          padding: EdgeInsets.only(bottom: 2),
+          padding: EdgeInsets.only(bottom: 12),
           height: 50,
           alignment: Alignment.bottomLeft,
           child: Text(
@@ -367,7 +424,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Container(
           height: 50,
-          padding: EdgeInsets.only(bottom: 2),
+          padding: EdgeInsets.only(bottom: 12),
           alignment: Alignment.bottomLeft,
           child: Text(
             AppTextConstants.Vegatables,
@@ -382,7 +439,23 @@ class _HomeScreenState extends State<HomeScreen> {
           width: 3.0,
           color: AppColors.borderColor,
         ),
-        insets: EdgeInsets.only(right: 145, left: 16),
+        insets: EdgeInsets.only(right: 145, left: 16, bottom: 8),
+      ),
+    );
+  }
+
+  _showScaffold(String message) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: new Duration(seconds: 1),
+        action: SnackBarAction(
+          label: "Dismiss",
+          textColor: AppColors.appBackgroundColor,
+          onPressed: () {
+            _scaffoldKey.currentState.hideCurrentSnackBar();
+          },
+        ),
       ),
     );
   }

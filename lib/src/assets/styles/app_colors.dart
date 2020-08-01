@@ -13,4 +13,5 @@ class AppColors {
   static Color borderColor = Colors.green;
   static Color boldtextColor = Colors.orange;
   static Color gridbackground=Colors.white;
+  static Color transparent=Colors.transparent;
 }
