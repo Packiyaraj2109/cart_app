@@ -8,9 +8,17 @@ class FruitResponseModel {
   FruitResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['fruits'] != null) {
       fruits = new List<ProductDetailsModel>();
-      json['fruits'].forEach((v) {
-        fruits.add(new ProductDetailsModel.fromJson(v));
-      });
+
+      json['fruits'].forEach(
+        (v) {
+          fruits.add(new ProductDetailsModel.fromJson(v));
+        },
+      );
+      fruits.sort(
+        (a, b) {
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+        },
+      );
     }
   }
 

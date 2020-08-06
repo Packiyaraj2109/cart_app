@@ -10,7 +10,10 @@ class VegetabeResponseModel {
       vegetables = new List<ProductDetailsModel>();
       json['vegetables'].forEach((v) {
         vegetables.add(new ProductDetailsModel.fromJson(v));
-      });
+      },);
+      vegetables.sort((a, b) {
+        return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      },);
     }
   }
 

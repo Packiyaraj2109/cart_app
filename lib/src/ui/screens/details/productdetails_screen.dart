@@ -1,8 +1,10 @@
 import 'package:cart_app/src/assets/styles/app_colors.dart';
 import 'package:cart_app/src/assets/styles/app_images.dart';
+import 'package:cart_app/src/blocs/home/home_bloc.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:cart_app/src/models/common/product_details_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductDetailsModel arguments;
@@ -11,12 +13,19 @@ class ProductDetailsScreen extends StatefulWidget {
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
 }
 
+HomeBloc _homebloc;
+
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   ProductDetailsModel productdetails;
   @override
   void initState() {
     productdetails = widget.arguments;
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        _homebloc = BlocProvider.of<HomeBloc>(context);
+      },
+    );
   }
 
   Widget build(BuildContext context) {
@@ -34,22 +43,39 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       child: Column(
         children: [
           Expanded(
-            child: AppImages.productimage(
+            child: Padding(
+              padding: const EdgeInsets.all(
+                16.0,
+              ),
+              child: AppImages.productimage(
                 width: double.maxFinite,
                 height: double.maxFinite,
-                imageurl: productdetails.image),
+                imageurl: productdetails.image,
+              ),
+            ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 16,
+              right: 16,
+              bottom: 16,
+            ),
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(productdetails.name,
-                    style: Theme.of(context).textTheme.headline6, maxLines: 1),
+                Text(
+                  productdetails.name,
+                  style: Theme.of(context).textTheme.headline6,
+                  maxLines: 1,
+                ),
                 SizedBox(height: 12),
                 Container(
-                  padding: EdgeInsets.only(top: 8, bottom: 16),
+                  padding: EdgeInsets.only(
+                    top: 8,
+                    bottom: 16,
+                  ),
                   child: Text(
                     productdetails.decription,
                     style: Theme.of(context).textTheme.bodyText1,
@@ -62,12 +88,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(productdetails.price,
-                        style: Theme.of(context).primaryTextTheme.headline6),
+                    Text(
+                      productdetails.price,
+                      style: Theme.of(context).primaryTextTheme.headline6,
+                    ),
                     FloatingActionButton.extended(
-                      onPressed: () {},
-                      label: Text(AppTextConstants.Addtocart,
-                          style: Theme.of(context).textTheme.headline3),
+                      onPressed: () => _cartAdd(productdetails),
+                      label: Text(
+                        AppTextConstants.Addtocart,
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
                       icon: Container(
                         width: 40,
                         height: 40,
@@ -76,9 +106,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           color: AppColors.iconColor,
                         ),
                         decoration: BoxDecoration(
-                            color: AppColors.iconbox,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
+                          color: AppColors.iconbox,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(25),
+                          ),
+                        ),
                       ),
                       backgroundColor: AppColors.gridbackground,
                       elevation: 0,
@@ -89,7 +121,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16), topLeft: Radius.circular(16)),
+                topRight: Radius.circular(16),
+                topLeft: Radius.circular(16),
+              ),
               color: AppColors.gridbackground,
             ),
           ),
@@ -105,7 +139,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       automaticallyImplyLeading: false,
       title: Container(
         child: Padding(
-          padding: const EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(
+            top: 16,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -142,6 +178,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
       ),
     );
+  }
+
+  _cartAdd(ProductDetailsModel productdetails) {
+    _homebloc.add(CartProductAddEvent('Add', productdetails));
+    Navigator.of(context).pop();
   }
 
   _cartExit() {

@@ -10,6 +10,7 @@ class LoginValidateSuccessState extends LoginState {}
 // class LoginValidateFailedtate extends LoginState {}
 
 class LoginFailedFailedState extends LoginState {
-  String msg;
-  LoginFailedFailedState(this.msg);
+  // String msg;
+  List<UserList> userList;
+  LoginFailedFailedState(this.userList);
 }
