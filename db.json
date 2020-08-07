@@ -3,23 +3,23 @@
         "userList": [
             {
                 "id": "1",
-                "username": "Admin",
-                "password": "admin123"
+                "username": "Admin1",
+                "password": "Admin1"
             },
             {
                 "id": "2",
+                "username": "Admin2",
+                "password": "Admin12"
+            },
+            {
+                "id": "3",
                 "username": "user1",
                 "password": "test123"
             },
             {
-                "id": "3",
+                "id": "4",
                 "username": "user2",
                 "password": "test1234"
-            },
-            {
-                "id": "4",
-                "username": "123",
-                "password": "123"
             }
         ]
     },
@@ -109,17 +109,53 @@
         {
             "id": "4",
             "name": "Banana",
-            "decription": "Strawberries are bright red, juicy, and sweet. They're an excellent source of vitamin C and manganese and also contain decent amounts of folate (vitamin B9) and potassium. ",
+            "decription": "Bananas are one of the most popular fruits in the world. They're full important nutrients, but eating too many could end up doing more harm than good. Too much of any single food may contribute to weight gain and nutrient deficiencies. One to two bananas per day is considered a moderate intake for most healthy people.",
             "price": "₹80.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/04/Banana-Free-PNG-Image.png"
         },
         {
             "id": "5",
             "name": "Strawberry",
-            "decription": "Bananas are one of the most popular fruits in the world. They're full important nutrients, but eating too many could end up doing more harm than good. Too much of any single food may contribute to weight gain and nutrient deficiencies. One to two bananas per day is considered a moderate intake for most healthy people.",
+            "decription": "Strawberries are bright red, juicy, and sweet. They're an excellent source of vitamin C and manganese and also contain decent amounts of folate (vitamin B9) and potassium. ",
             "price": "₹200.00",
             "image": "http://www.pngall.com/wp-content/uploads/2016/05/Strawberry-Free-Download-PNG.png"
+        },
+        {
+            "id": "6",
+            "name": "Kiwi",
+            "decription": "Kiwis are pear-shaped, flightless birds with long legs and beak. Though they look to be covered in fur, kiwis actually have thin, hair-like feathers. Their closest relatives are the emu, ostrich, cassowary and rhea.",
+            "price": "₹150.00",
+            "image": "https://www.freepngimg.com/thumb/kiwi/3-kiwi-png-image-fruit-kiwi-png-pictures-download.png"
+        },
+        {
+            "id": "7",
+            "name": "Watermelon",
+            "decription": "Watermelon contains 82 per cent water, which helps your stomach not to crave for food. Watermelon is rich in vitamin C, which is beneficial for health.",
+            "price": "₹10.00",
+            "image": "https://www.freepngimg.com/thumb/watermelon/3-watermelon-png-image.png    "
+        },
+        {
+            "id": "8",
+            "name": "Pineapple",
+            "decription": "Pineapple is high in vitamin C, which helps your immune system -- the body's defense against germs -- keep you healthy. It also has: Vitamins A, B6, E, and K.",
+            "price": "₹111.00",
+            "image": "https://www.freepngimg.com/thumb/pineapple/7-pineapple-fruit-png-image.png"
+        },
+        {
+            "id": "9",
+            "name": "Pomogranate",
+            "decription": "Eating pomegranates as a whole can have anti-inflammatory effects and can protect a human body from various diseases like type-2 diabetes, and obesity. 2. Regular consumption of pomegranate helps in improving gut health, digestion, and keep bowel diseases at bay.",
+            "price": "₹180.00",
+            "image": "https://pngriver.com/wp-content/uploads/2018/04/Download-Pomegranate-PNG-Photos.png"
+        },
+        {
+            "id": "10",
+            "name": "Papaya",
+            "decription": "Eating a papaya daily can make up for such occasional mistakes, as it has a digestive enzyme known as papain along with fibre which helps improve your digestive health.",
+            "price": "₹100.00",
+            "image": "https://www.freepngimg.com/thumb/papaya/24520-1-papaya-photos-thumb.png"
         }
+        
     ]
     },
     "vegetables": {
@@ -151,6 +187,48 @@
                 "decription": "Tomatoes are the major dietary source of the antioxidant lycopene, which has been linked to many health benefits, including reduced risk of heart disease and cancer.",
                 "price": "₹80.00",
                 "image": "http://www.pngall.com/wp-content/uploads/2016/04/Tomato-PNG-File.png"
+            },
+            {
+                "id": "5",
+                "name": "Capsicum",
+                "decription": "Forget an apple a day; a red capsicum will give you a massive Vitamin C boost for minimal calories. A rich source of carotenoids, the group of antioxidants known to play a powerful role in helping to down regulate a number of inflammatory pathways in the body.",
+                "price": "₹80.00",
+                "image": "https://www.pinclipart.com/picdir/big/188-1889948_red-capsicum-peppers-clipart.png"
+            },
+            {
+                "id": "6",
+                "name": "Corn",
+                "decription": "Corn is rich in fiber and plant compounds that may aid digestive and eye health. Yet, it's high in starch, can spike blood sugar and may prevent weight loss when consumed in excess. The safety of genetically modified corn may also be a concern. ",
+                "price": "₹160.00",
+                "image": "https://pngimg.com/uploads/corn/corn_PNG5273.png"
+            },
+            {
+                "id": "7",
+                "name": "Broccoli",
+                "decription": "Broccoli is great for heart health as it contains fibers, fatty acids and vitamins that help regulating blood pressure in the body. This also helps in reducing bad cholesterol, hence leading to a healthy heart. Broccoli helps protecting blood vessels from damaging as well.",
+                "price": "₹100.00",
+                "image": "https://purepng.com/public/uploads/large/purepng.com-broccolibroccoligreen-plantvegetablebroccolo-17015272400459hlzd.png"
+            },
+            {
+                "id": "8",
+                "name": "Cucumber",
+                "decription": "Cucumbers also contribute to healthy recovery in other ways. It's an excellent source of the chemical compound silica, which helps the body re-grow connective tissue in the muscles, ligaments, tendons and other tissues. Additionally, cucumbers help you maintain healthy blood pressure levels.",
+                "price": "₹85.00",
+                "image": "https://purepng.com/public/uploads/medium/purepng.com-cucumbercucumbervegetablespicklegreenfoodhealthycucumbers-481522161925hxv2p.png"
+            },
+            {
+                "id": "9",
+                "name": "Brinjal",
+                "decription": "Eggplant is a high-fiber, low-calorie food that is rich in nutrients and comes with many potential health benefits. From reducing the risk of heart disease to helping with blood sugar control and weight loss, eggplants are a simple and delicious addition to any healthy diet.  ",
+                "price": "₹50.00",
+                "image": "https://www.freepngimg.com/thumb/eggplant/3-eggplant-png-images-download.png"
+            },
+            {
+                "id": "10",
+                "name": "Cabbage",
+                "decription": "It is full of vitamin K and anthocyanins that help with mental function and concentration. These nutrients also prevent nerve damage, improving your defense against Alzheimer's disease and dementia. Red cabbage has the highest amount of these power nutrients",
+                "price": "₹45.00",
+                "image": "https://purepng.com/public/uploads/large/purepng.com-cabbagecabbageplantvegetablesgreen-1701527241681dzp9y.png"
             }
         ]
     }
