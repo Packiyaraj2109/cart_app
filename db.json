@@ -23,66 +23,6 @@
             }
         ]
     },
-    "products": {
-        "productList": [
-            {
-                "id": "1",
-                "name": "Chana Dal Loose-1 Kg",
-                "decription": "Most recommented product",
-                "price": "80.00",
-                "image": "https://media.truelocal.com.au/1/E/171A8CE5-EA99-47F9-AF3D-ED115E3F592E/kairali-spice-centre-beckenham-supermarket-grocery-stores-spices-1aaf-938x704.jpg"
-            },
-            {
-                "id": "2",
-                "name": "Pillsbury Chakki Fresh Atta  (1 kg)",
-                "decription": "Most recommented product",
-                "price": "340.00",
-                "image": "https://images-na.ssl-images-amazon.com/images/I/7176DkgjS%2BL._SL1500_.jpg"
-            },
-            {
-                "id": "3",
-                "name": "Fortune-Fresh Chakki 5 Sense 100 % Atta-10 Kg",
-                "decription": "Most recommented product",
-                "price": "370.00",
-                "image": "https://images-na.ssl-images-amazon.com/images/I/516L7l3%2BltL._SX425_.jpg"
-            },
-            {
-                "id": "4",
-                "name": "1 Ltr Brij Gwala Pure Cow Desi Ghee Jar",
-                "decription": "Most recommented product",
-                "price": "170.00",
-                "image": "https://cpimg.tistatic.com/05026182/b/7/tr:w-300/Brij-Gwala-Pure-Cow-Ghee-5-ltr-jar.jpg"
-            },
-            {
-                "id": "5",
-                "name": "Ching's Secret Schezwan Chutney Paste (250gm)",
-                "decription": "Most recommented product",
-                "price": "69.00",
-                "image": "https://www.empokart.com/wp-content/uploads/2019/07/Chings-Secret-Schezwan-Chutney-Paste-250-g.jpg"
-            },
-            {
-                "id": "6",
-                "name": "MTR Instant Dosa Mix 500 gm",
-                "decription": "Most recommented product",
-                "price": "109.00",
-                "image": "https://rukminim1.flixcart.com/image/352/352/j3nbwy80/ready-mix/c/d/y/500-instant-dosa-mix-breakfast-mix-mtr-foods-original-imaeuz79g3g3u7mr.jpeg?q=70"
-            },
-            {
-                "id": "7",
-                "name": "Chings Schezwan Chutney 40 Gm( Pack of 10 )",
-                "decription": "Most recommented product",
-                "price": "100.00",
-                "image": "https://www.justgotochef.com/img/1523441720-Ching's%20Secret-Schezwan%20Chutney%20Paste-Front.jpg"
-            },
-            {
-                "id": "8",
-                "name": "Pillsbury Chakki Fresh Atta  (1 kg)",
-                "decription": "Most recommented product",
-                "price": "340.00",
-                "image": "https://images-na.ssl-images-amazon.com/images/I/7176DkgjS%2BL._SL1500_.jpg"
-            }
-        ]        
-    },
     "fruits": {
         "fruits": [
         {
@@ -208,27 +148,6 @@
                 "decription": "Broccoli is great for heart health as it contains fibers, fatty acids and vitamins that help regulating blood pressure in the body. This also helps in reducing bad cholesterol, hence leading to a healthy heart. Broccoli helps protecting blood vessels from damaging as well.",
                 "price": "₹100.00",
                 "image": "https://purepng.com/public/uploads/large/purepng.com-broccolibroccoligreen-plantvegetablebroccolo-17015272400459hlzd.png"
-            },
-            {
-                "id": "8",
-                "name": "Cucumber",
-                "decription": "Cucumbers also contribute to healthy recovery in other ways. It's an excellent source of the chemical compound silica, which helps the body re-grow connective tissue in the muscles, ligaments, tendons and other tissues. Additionally, cucumbers help you maintain healthy blood pressure levels.",
-                "price": "₹85.00",
-                "image": "https://purepng.com/public/uploads/medium/purepng.com-cucumbercucumbervegetablespicklegreenfoodhealthycucumbers-481522161925hxv2p.png"
-            },
-            {
-                "id": "9",
-                "name": "Brinjal",
-                "decription": "Eggplant is a high-fiber, low-calorie food that is rich in nutrients and comes with many potential health benefits. From reducing the risk of heart disease to helping with blood sugar control and weight loss, eggplants are a simple and delicious addition to any healthy diet.  ",
-                "price": "₹50.00",
-                "image": "https://www.freepngimg.com/thumb/eggplant/3-eggplant-png-images-download.png"
-            },
-            {
-                "id": "10",
-                "name": "Cabbage",
-                "decription": "It is full of vitamin K and anthocyanins that help with mental function and concentration. These nutrients also prevent nerve damage, improving your defense against Alzheimer's disease and dementia. Red cabbage has the highest amount of these power nutrients",
-                "price": "₹45.00",
-                "image": "https://purepng.com/public/uploads/large/purepng.com-cabbagecabbageplantvegetablesgreen-1701527241681dzp9y.png"
             }
         ]
     }
