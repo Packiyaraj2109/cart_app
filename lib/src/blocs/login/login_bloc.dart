@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../constants/app_text_constants.dart';
 import '../../data/repository/login/login_repository.dart';
 import '../../models/login/login_response_model.dart';
 

@@ -27,17 +27,27 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         _homebloc = BlocProvider.of<HomeBloc>(context);
-        // _homebloc.listen(loginBlocListener);
+        _homebloc.listen(homeBlocListener);
         _homebloc.add(HomeProductDisplayEvent());
       },
     );
     super.initState();
   }
 
-  // Future<void> loginBlocListener(HomeState state) async {
-  //   if (state is ItemDisplayState) {
-  //     productFruits = state.productList;
-  //   }
+  Future<void> homeBlocListener(HomeState state) async {
+    if (state is SnackbarState) {
+      _showScaffold(state.msg);
+    }
+  }
+
+  // Future<void> loginBlocListener(LoginState state) async {
+  // if (state is LoginValidateSuccessState) {
+  //   Navigator.of(context).pop();
+  //   Navigator.of(context).pushNamed(ScreenRoutes.HOMEPAGE);
+  // } else if (state is LoginFailedFailedState) {
+  // _scaffoldKey.currentState.removeCurrentSnackBar();
+  // _showScaffold(state.msg);
+  // }
   // }
 
   Widget build(BuildContext context) {
@@ -54,33 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _bodyBuild() {
-    return BlocBuilder<HomeBloc, HomeState>(
-      condition: (HomeState previous, HomeState current) {
-        return current is ItemDisplayState;
-      },
-      builder: (BuildContext context, HomeState state) {
-        if (state is ItemDisplayState &&
-            state.productListFruits.isNotEmpty &&
-            state.productListVegetables.isNotEmpty) {
-          List<Widget> containers = [
-            buildGridView(state.productListFruits),
-            buildGridView(state.productListVegetables)
-          ];
-          return TabBarView(
-            children: containers,
-          );
-        }
-        return Center(
-          child: CircularProgressIndicator(
-            valueColor:
-                new AlwaysStoppedAnimation<Color>(AppColors.appBackgroundColor),
-          ),
-        );
-      },
-    );
-  }
-
   PreferredSize _appbarBuild() {
     return PreferredSize(
       preferredSize: Size.fromHeight(130.0),
@@ -90,9 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: Container(
           child: Padding(
-            padding: const EdgeInsets.only(left: 32.0, top: 16),
+            padding: const EdgeInsets.only(top: 16),
             child: Row(
               children: [
+                GestureDetector(
+                  onTap: ()=> logout(),
+                      child:Container(
+                            width: 40,
+                            height: 40,
+                            child: Icon(
+                              Icons.close,
+                              size: 20.0,
+                              color: AppColors.iconColor2,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(6.0),
+                              ),
+                              color: AppColors.iconbox2,
+                            ),
+                          ),),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -161,12 +161,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _cartNavigator() async {
-    _scaffoldKey.currentState.removeCurrentSnackBar();
-    await Navigator.of(context).pushNamed(ScreenRoutes.CART);
-    setState(
-      () {
-        cartitems.length;
+  Widget _bodyBuild() {
+    return BlocBuilder<HomeBloc, HomeState>(
+      condition: (HomeState previous, HomeState current) {
+        return current is ItemDisplayState;
+      },
+      builder: (BuildContext context, HomeState state) {
+        if (state is ItemDisplayState &&
+            state.productListFruits.isNotEmpty &&
+            state.productListVegetables.isNotEmpty) {
+          List<Widget> containers = [
+            buildGridView(state.productListFruits),
+            buildGridView(state.productListVegetables)
+          ];
+          return TabBarView(
+            children: containers,
+          );
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            valueColor:
+                new AlwaysStoppedAnimation<Color>(AppColors.appBackgroundColor),
+          ),
+        );
       },
     );
   }
@@ -196,35 +213,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(
-                      top: 25,
+                      top: 16,
                       bottom: 8,
-                      left: 25,
-                      right: 15,
+                      left: 16,
+                      right: 16,
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        AppImages.productimage(
-                          width: 120,
-                          height: 100,
-                          imageurl: productItem.image,
+                        Expanded(
+                          flex: 2,
+                          child: AppImages.productimage(
+                            imageurl: productItem.image,
+                          ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              productItem.name,
-                              style: Theme.of(context).textTheme.headline3,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              productItem.price,
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline5,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                productItem.name,
+                                style: Theme.of(context).textTheme.headline3,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                productItem.price,
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headline5,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -274,26 +295,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _favouriteAdd(ProductDetailsModel productItem) {
-    setState(
-      () {
-        productItem.favourite = !(productItem.favourite);
-      },
-    );
-  }
-
-  _cartAdd(ProductDetailsModel productItem) {
-    _homebloc.add(CartProductAddEvent(AppTextConstants.ADDPRODUCT, productItem));
-    _showScaffold(
-        "${productItem.name} Added to cart. Quantity: ${productItem.count}");
-
-    // setState(
-    //   () {
-    //     cartitems = cartitems;
-    //   },
-    // );
-  }
-
   TabBar _tabbar() {
     return TabBar(
       tabs: [
@@ -328,7 +329,56 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _showScaffold(String message) {
+  _favouriteAdd(ProductDetailsModel productItem) {
+    setState(
+      () {
+        productItem.favourite = !(productItem.favourite);
+      },
+    );
+  }
+
+  _cartAdd(ProductDetailsModel productItem) async {
+    _homebloc
+        .add(CartProductAddEvent(AppTextConstants.ADDPRODUCT, productItem));
+  }
+
+    Future<void> logout() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(AppTextConstants.Logout),
+          content: Text('Are you sure to Exit?'),
+          actions: <Widget>[
+            FlatButton(
+              child:  Text(AppTextConstants.Confirm),
+              onPressed:(){
+                 _homebloc.add(
+      CartProductClearEvent(),
+    );
+                    Navigator.of(context)
+        .pushNamedAndRemoveUntil(ScreenRoutes.SIGNIN, (route) => false);
+              },
+            ),
+            FlatButton(
+              child:  Text(AppTextConstants.Cancel),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+
+  void _cartNavigator() async {
+    _scaffoldKey.currentState.removeCurrentSnackBar();
+    await Navigator.of(context).pushNamed(ScreenRoutes.CART);
+  }
+
+  Future _showScaffold(String message) {
     _scaffoldKey.currentState.removeCurrentSnackBar();
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(

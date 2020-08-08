@@ -24,6 +24,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield* _itemDisplayevent(event);
     } else if (event is CartProductAddEvent) {
       yield* _itemAddCartEvent(event);
+    } else if (event is CartProductClearEvent) {
+      yield* _listClear();
     }
   }
 
@@ -57,11 +59,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       yield HomeChangeState();
       yield cartItemState..cartitems = cartitems;
+          yield SnackbarState(
+        '${productItem.name} Added to cart. Quantity: ${productItem.count}');
     } else {
       cartitems.removeAt(index);
       yield HomeChangeState();
       yield cartItemState..cartitems = cartitems;
     }
+
+
+    yield cartItemState..cartitems = cartitems;
+  }
+
+  Stream<HomeState> _listClear() async* {
+    List<ProductDetailsModel> cartitems = cartItemState.cartitems ?? [];
+    cartitems.clear();
     yield cartItemState..cartitems = cartitems;
     // yield AddToCartState(cartitems,AppTextConstants.LoginErrorMsg);
   }

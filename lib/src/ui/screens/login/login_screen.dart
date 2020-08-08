@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LoginBloc _loginBloc;
   List<UserList> userList = [];
+  var reg = "[a-zA-Z0-9]";
 
   @override
   void initState() {
@@ -46,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // }
 
   bool passwordVisible = true;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,12 +62,17 @@ class _LoginScreenState extends State<LoginScreen> {
   SingleChildScrollView _bodyBuild() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 12.0, left: 8, right: 8, bottom: 8),
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          left: 8,
+          right: 8,
+          bottom: 16,
+        ),
         child: Column(
           children: [
             Center(
               child: Text(
-                "Welcome!!!",
+                AppTextConstants.WELCOME,
                 style: Theme.of(context).primaryTextTheme.headline6,
               ),
             ),
@@ -75,22 +82,23 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Container(
               decoration: BoxDecoration(
-                  borderRadius: new BorderRadius.all(
-                    Radius.circular(10),
+                borderRadius: new BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                color: AppColors.gridbackground,
+                boxShadow: [
+                  new BoxShadow(
+                    color: AppColors.boxshadowcolor,
+                    blurRadius: 5.0,
                   ),
-                  color: AppColors.gridbackground,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: Colors.grey[400],
-                      blurRadius: 5.0,
-                    ),
-                  ]),
+                ],
+              ),
               width: double.infinity,
               padding: EdgeInsets.only(
-                left: 40,
-                right: 40,
-                top: 24,
-                bottom: 24,
+                left: 24,
+                right: 24,
+                top: 16,
+                bottom: 16,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,8 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextField(
                           controller: _usernameController,
                           inputFormatters: [
-                            new WhitelistingTextInputFormatter(
-                                RegExp("[a-zA-Z0-9]")),
+                            new WhitelistingTextInputFormatter(RegExp(reg)),
                           ],
                           // controller: _userNameController,
                           cursorColor: AppColors.tabunselected,
@@ -146,8 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           inputFormatters: [
-                            new WhitelistingTextInputFormatter(
-                                RegExp("[a-zA-Z0-9]")),
+                            new WhitelistingTextInputFormatter(RegExp(reg)),
                           ],
                           // controller: _userNameController,
                           cursorColor: AppColors.tabunselected,
@@ -233,9 +239,90 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           ),
         );
-
-        // return _bottomSheetBody();
       },
+    );
+  }
+
+  Container _bottomSheetBody(List<UserList> userList) {
+    return Container(
+      height: 500,
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Column(
+        children: <Widget>[
+          Center(
+              child: Text("Available Users",
+                  style: Theme.of(context).primaryTextTheme.headline5)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children:
+                // Center(
+                //     child: Text("Available Users",
+                //         style: Theme.of(context).primaryTextTheme.headline5)),
+                // SizedBox(height: 10),
+                List.generate(
+              userList.length,
+              (index) {
+                UserList user = userList[index];
+                // userList = userList;
+                return
+                    // Center(
+                    //     child: Text("Available Users",
+                    //         style: Theme.of(context).primaryTextTheme.headline5)),
+                    // SizedBox(height: 10),
+                    GestureDetector(
+                  onTap: () => _userSet(user),
+                  child: Container(
+                    width: double.infinity,
+                    height: 80,
+                    padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            width: 1, color: Theme.of(context).dividerColor),
+                      ),
+                      color: AppColors.gridbackground,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: "UserID         : ",
+                                  style: Theme.of(context)
+                                      .accentTextTheme
+                                      .headline3),
+                              TextSpan(
+                                  text: "   ${user.username}",
+                                  style: Theme.of(context).textTheme.headline3),
+                            ],
+                          ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: "Password   : ",
+                                  style: Theme.of(context)
+                                      .accentTextTheme
+                                      .headline3),
+                              TextSpan(
+                                  text: "   ${user.password}",
+                                  style: Theme.of(context).textTheme.headline3),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -244,10 +331,10 @@ class _LoginScreenState extends State<LoginScreen> {
     String password = _passwordController.text;
     if (username == '') {
       _scaffoldKey.currentState.removeCurrentSnackBar();
-      _showScaffold("Enter Username");
+      _showScaffold(AppTextConstants.EnterUserName);
     } else if (password == '') {
       _scaffoldKey.currentState.removeCurrentSnackBar();
-      _showScaffold("Enter Password");
+      _showScaffold(AppTextConstants.EnterPassword);
     } else {
       int index = userList.indexWhere((UserList element) =>
           element.username == username && element.password == password);
@@ -255,77 +342,10 @@ class _LoginScreenState extends State<LoginScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _showScaffold(AppTextConstants.LoginErrorMsg);
       } else {
-        Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(ScreenRoutes.HOMEPAGE);
+            Navigator.of(context)
+        .pushNamedAndRemoveUntil(ScreenRoutes.HOMEPAGE, (route) => false);
       }
     }
-  }
-
-  SingleChildScrollView _bottomSheetBody(List<UserList> userList) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(8),
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: List.generate(
-            userList.length,
-            (index) {
-              UserList user = userList[index];
-              userList = userList;
-              return
-                  // Center(
-                  //     child: Text("Available Users",
-                  //         style: Theme.of(context).primaryTextTheme.headline5)),
-                  // SizedBox(height: 10),
-                  Container(
-                width: double.infinity,
-                height: 80,
-                padding: EdgeInsets.fromLTRB(24, 8, 24, 8),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                        width: 1, color: Theme.of(context).dividerColor),
-                  ),
-                  color: AppColors.gridbackground,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "UserID         : ",
-                              style:
-                                  Theme.of(context).accentTextTheme.headline3),
-                          TextSpan(
-                              text: "   ${user.username}",
-                              style: Theme.of(context).textTheme.headline3),
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "Password   : ",
-                              style:
-                                  Theme.of(context).accentTextTheme.headline3),
-                          TextSpan(
-                              text: "   ${user.password}",
-                              style: Theme.of(context).textTheme.headline3),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
   }
 
   void _passwordVisible() {
@@ -334,6 +354,14 @@ class _LoginScreenState extends State<LoginScreen> {
         passwordVisible = !passwordVisible;
       },
     );
+  }
+
+  _userSet(UserList user) {
+    Navigator.pop(context);
+    setState(() {
+      _usernameController = TextEditingController(text: user.username);
+      _passwordController = TextEditingController(text: user.password);
+    },);
   }
 
   // Future<void> _dataFetch() async {

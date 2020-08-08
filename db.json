@@ -69,27 +69,13 @@
         },
         {
             "id": "7",
-            "name": "Watermelon",
-            "decription": "Watermelon contains 82 per cent water, which helps your stomach not to crave for food. Watermelon is rich in vitamin C, which is beneficial for health.",
-            "price": "₹10.00",
-            "image": "https://www.freepngimg.com/thumb/watermelon/3-watermelon-png-image.png    "
-        },
-        {
-            "id": "8",
-            "name": "Pineapple",
-            "decription": "Pineapple is high in vitamin C, which helps your immune system -- the body's defense against germs -- keep you healthy. It also has: Vitamins A, B6, E, and K.",
-            "price": "₹111.00",
-            "image": "https://www.freepngimg.com/thumb/pineapple/7-pineapple-fruit-png-image.png"
-        },
-        {
-            "id": "9",
             "name": "Pomogranate",
             "decription": "Eating pomegranates as a whole can have anti-inflammatory effects and can protect a human body from various diseases like type-2 diabetes, and obesity. 2. Regular consumption of pomegranate helps in improving gut health, digestion, and keep bowel diseases at bay.",
             "price": "₹180.00",
             "image": "https://pngriver.com/wp-content/uploads/2018/04/Download-Pomegranate-PNG-Photos.png"
         },
         {
-            "id": "10",
+            "id": "8",
             "name": "Papaya",
             "decription": "Eating a papaya daily can make up for such occasional mistakes, as it has a digestive enzyme known as papain along with fibre which helps improve your digestive health.",
             "price": "₹100.00",
@@ -141,13 +127,6 @@
                 "decription": "Corn is rich in fiber and plant compounds that may aid digestive and eye health. Yet, it's high in starch, can spike blood sugar and may prevent weight loss when consumed in excess. The safety of genetically modified corn may also be a concern. ",
                 "price": "₹160.00",
                 "image": "https://pngimg.com/uploads/corn/corn_PNG5273.png"
-            },
-            {
-                "id": "7",
-                "name": "Broccoli",
-                "decription": "Broccoli is great for heart health as it contains fibers, fatty acids and vitamins that help regulating blood pressure in the body. This also helps in reducing bad cholesterol, hence leading to a healthy heart. Broccoli helps protecting blood vessels from damaging as well.",
-                "price": "₹100.00",
-                "image": "https://purepng.com/public/uploads/large/purepng.com-broccolibroccoligreen-plantvegetablebroccolo-17015272400459hlzd.png"
             }
         ]
     }

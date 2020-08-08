@@ -10,9 +10,6 @@ class CartProductAddEvent extends HomeEvent {
   CartProductAddEvent(this.action,this.productItem);
 }
 
-class ItemQuantityModifyEvent extends HomeEvent {
-  int index;
-  String action;
-  ItemQuantityModifyEvent(this.index,this.action);
+class CartProductClearEvent extends HomeEvent {
 
 }

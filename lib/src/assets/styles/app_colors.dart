@@ -18,4 +18,5 @@ class AppColors {
   static Color tabselected=Colors.black;
   static Color tabunselected=Colors.grey;
   static Color dividercolor=Color(0xFFE0E0E0);
+  static Color boxshadowcolor=Colors.grey[400];
 }

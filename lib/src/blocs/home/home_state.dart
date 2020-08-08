@@ -4,6 +4,11 @@ abstract class HomeState {}
 
 class HomeInitial extends HomeState {}
 
+class SnackbarState extends HomeState {
+  String msg;
+  SnackbarState(this.msg);
+}
+
 class HomeChangeState extends HomeState {}
 
 class ItemDisplayState extends HomeState {
@@ -15,10 +20,7 @@ class ItemDisplayState extends HomeState {
 
 class AddToCartState extends HomeState {
   List<ProductDetailsModel> cartitems;
-  String msg;
-  AddToCartState({this.cartitems,this.msg});
+  AddToCartState({this.cartitems});
 }
 
-class ItemQuantityState extends HomeState {
-  
-}
+class ItemQuantityState extends HomeState {}

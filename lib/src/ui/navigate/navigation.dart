@@ -3,6 +3,7 @@ import 'package:cart_app/src/blocs/home/home_bloc.dart';
 import 'package:cart_app/src/blocs/login/login_bloc.dart';
 import 'package:cart_app/src/ui/navigate/screen_routes.dart';
 import 'package:cart_app/src/ui/screens/cart/cart_screen.dart';
+import 'package:cart_app/src/ui/screens/cart/transaction_screen.dart';
 import 'package:cart_app/src/ui/screens/details/productdetails_screen.dart';
 import 'package:cart_app/src/ui/screens/home/home_screen.dart';
 import 'package:cart_app/src/ui/screens/login/login_screen.dart';
@@ -17,14 +18,11 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeBloc>(
       create: (BuildContext context) => HomeBloc(),
     ),
-     BlocProvider<LoginBloc>(
-      create: (BuildContext context) => LoginBloc(),
-    ),
     // (BuildContext context) => HomeBloc(),
     ],
       child: MaterialApp(
         theme: lightTheme(),
-        initialRoute: ScreenRoutes.SIGNIN,
+        initialRoute: ScreenRoutes.HOMEPAGE,
         onGenerateRoute: generateRoute,
       ),
     );
@@ -61,6 +59,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (BuildContext context) {
           return CartScreen();
+        },
+      );
+      break;
+    case ScreenRoutes.Payment:
+      return MaterialPageRoute(
+        builder: (BuildContext context) {
+          return Transaction_Screen(arguments: settings.arguments);
         },
       );
       break;
