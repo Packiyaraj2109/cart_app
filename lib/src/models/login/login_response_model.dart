@@ -6,9 +6,11 @@ class LoginResponseModel {
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['userList'] != null) {
       userList = new List<UserList>();
-      json['userList'].forEach((v) {
-        userList.add(new UserList.fromJson(v));
-      });
+      json['userList'].forEach(
+        (v) {
+          userList.add(new UserList.fromJson(v));
+        },
+      );
     }
   }
 

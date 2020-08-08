@@ -77,22 +77,23 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               children: [
                 GestureDetector(
-                  onTap: ()=> logout(),
-                      child:Container(
-                            width: 40,
-                            height: 40,
-                            child: Icon(
-                              Icons.close,
-                              size: 20.0,
-                              color: AppColors.iconColor2,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(6.0),
-                              ),
-                              color: AppColors.iconbox2,
-                            ),
-                          ),),
+                  onTap: () => logout(),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    child: Icon(
+                      Icons.close,
+                      size: 20.0,
+                      color: AppColors.iconColor2,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(6.0),
+                      ),
+                      color: AppColors.iconbox2,
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: Center(
                     child: Text(
@@ -192,106 +193,109 @@ class _HomeScreenState extends State<HomeScreen> {
     return GridView.count(
       crossAxisCount: 2,
       childAspectRatio: (9 / 10),
-      children: List.generate(listItem.length, (index) {
-        ProductDetailsModel productItem = listItem[index];
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
-            onTap: () => Navigator.of(context)
-                .pushNamed(ScreenRoutes.ITEMDETAILS, arguments: productItem),
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.0),
+      children: List.generate(
+        listItem.length,
+        (index) {
+          ProductDetailsModel productItem = listItem[index];
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              onTap: () => Navigator.of(context)
+                  .pushNamed(ScreenRoutes.ITEMDETAILS, arguments: productItem),
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8.0),
+                  ),
+                  color: AppColors.gridbackground,
                 ),
-                color: AppColors.gridbackground,
-              ),
-              child: Stack(
-                overflow: Overflow.visible,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 16,
-                      bottom: 8,
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 2,
-                          child: AppImages.productimage(
-                            imageurl: productItem.image,
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                productItem.name,
-                                style: Theme.of(context).textTheme.headline3,
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                productItem.price,
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline5,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Align(
-                    child: IconButton(
-                      splashColor: AppColors.transparent,
-                      highlightColor: AppColors.transparent,
-                      icon: new Icon(
-                        Icons.favorite_border,
-                        color: (productItem.favourite)
-                            ? AppColors.borderColor
-                            : AppColors.themeColor,
+                child: Stack(
+                  overflow: Overflow.visible,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 16,
+                        bottom: 8,
+                        left: 16,
+                        right: 16,
                       ),
-                      onPressed: () => _favouriteAdd(productItem),
-                    ),
-                    alignment: Alignment.topRight,
-                  ),
-                  Align(
-                    child: GestureDetector(
-                      onTap: () => _cartAdd(productItem),
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.add_shopping_cart,
-                          size: 20.0,
-                          color: AppColors.iconColor,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.0),
-                            bottomRight: Radius.circular(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 2,
+                            child: AppImages.productimage(
+                              imageurl: productItem.image,
+                            ),
                           ),
-                          color: AppColors.iconbox,
-                        ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  productItem.name,
+                                  style: Theme.of(context).textTheme.headline3,
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  productItem.price,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline5,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    alignment: Alignment.bottomRight,
-                  )
-                ],
+                    Align(
+                      child: IconButton(
+                        splashColor: AppColors.transparent,
+                        highlightColor: AppColors.transparent,
+                        icon: new Icon(
+                          Icons.favorite_border,
+                          color: (productItem.favourite)
+                              ? AppColors.borderColor
+                              : AppColors.themeColor,
+                        ),
+                        onPressed: () => _favouriteAdd(productItem),
+                      ),
+                      alignment: Alignment.topRight,
+                    ),
+                    Align(
+                      child: GestureDetector(
+                        onTap: () => _cartAdd(productItem),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          child: Icon(
+                            Icons.add_shopping_cart,
+                            size: 20.0,
+                            color: AppColors.iconColor,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(8.0),
+                              bottomRight: Radius.circular(8.0),
+                            ),
+                            color: AppColors.iconbox,
+                          ),
+                        ),
+                      ),
+                      alignment: Alignment.bottomRight,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 
@@ -342,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .add(CartProductAddEvent(AppTextConstants.ADDPRODUCT, productItem));
   }
 
-    Future<void> logout() async {
+  Future<void> logout() async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -351,17 +355,23 @@ class _HomeScreenState extends State<HomeScreen> {
           content: Text('Are you sure to Exit?'),
           actions: <Widget>[
             FlatButton(
-              child:  Text(AppTextConstants.Confirm),
-              onPressed:(){
-                 _homebloc.add(
-      CartProductClearEvent(),
-    );
-                    Navigator.of(context)
-        .pushNamedAndRemoveUntil(ScreenRoutes.SIGNIN, (route) => false);
+              child: Text(
+                AppTextConstants.Confirm,
+                style: Theme.of(context).primaryTextTheme.headline2,
+              ),
+              onPressed: () {
+                _homebloc.add(
+                  CartProductClearEvent(),
+                );
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    ScreenRoutes.SIGNIN, (route) => false);
               },
             ),
             FlatButton(
-              child:  Text(AppTextConstants.Cancel),
+              child: Text(
+                AppTextConstants.Cancel,
+                style: Theme.of(context).primaryTextTheme.headline2,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -372,25 +382,24 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-
   void _cartNavigator() async {
-    _scaffoldKey.currentState.removeCurrentSnackBar();
     await Navigator.of(context).pushNamed(ScreenRoutes.CART);
+    _scaffoldKey.currentState.removeCurrentSnackBar();
   }
 
-  Future _showScaffold(String message) {
+   _showScaffold(String message) {
     _scaffoldKey.currentState.removeCurrentSnackBar();
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(message),
         duration: new Duration(seconds: 1),
-        action: SnackBarAction(
-          label: AppTextConstants.Dismiss,
-          textColor: AppColors.appBackgroundColor,
-          onPressed: () {
-            _scaffoldKey.currentState.hideCurrentSnackBar();
-          },
-        ),
+        // action: SnackBarAction(
+        //   label: AppTextConstants.Dismiss,
+        //   textColor: AppColors.appBackgroundColor,
+        //   onPressed: () {
+        //     _scaffoldKey.currentState.hideCurrentSnackBar();
+        //   },
+        // ),
       ),
     );
   }

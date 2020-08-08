@@ -243,9 +243,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Container _bottomSheetBody(List<UserList> userList) {
-    return Container(
-      height: 500,
+  Padding _bottomSheetBody(List<UserList> userList) {
+    return Padding(
       padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
       child: Column(
         children: <Widget>[
@@ -342,8 +341,8 @@ class _LoginScreenState extends State<LoginScreen> {
         _scaffoldKey.currentState.removeCurrentSnackBar();
         _showScaffold(AppTextConstants.LoginErrorMsg);
       } else {
-            Navigator.of(context)
-        .pushNamedAndRemoveUntil(ScreenRoutes.HOMEPAGE, (route) => false);
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil(ScreenRoutes.HOMEPAGE, (route) => false);
       }
     }
   }
@@ -358,10 +357,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   _userSet(UserList user) {
     Navigator.pop(context);
-    setState(() {
-      _usernameController = TextEditingController(text: user.username);
-      _passwordController = TextEditingController(text: user.password);
-    },);
+    setState(
+      () {
+        _usernameController = TextEditingController(text: user.username);
+        _passwordController = TextEditingController(text: user.password);
+      },
+    );
   }
 
   // Future<void> _dataFetch() async {

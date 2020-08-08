@@ -8,12 +8,16 @@ class VegetabeResponseModel {
   VegetabeResponseModel.fromJson(Map<String, dynamic> json) {
     if (json['vegetables'] != null) {
       vegetables = new List<ProductDetailsModel>();
-      json['vegetables'].forEach((v) {
-        vegetables.add(new ProductDetailsModel.fromJson(v));
-      },);
-      vegetables.sort((a, b) {
-        return a.name.toLowerCase().compareTo(b.name.toLowerCase());
-      },);
+      json['vegetables'].forEach(
+        (v) {
+          vegetables.add(new ProductDetailsModel.fromJson(v));
+        },
+      );
+      vegetables.sort(
+        (a, b) {
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+        },
+      );
     }
   }
 

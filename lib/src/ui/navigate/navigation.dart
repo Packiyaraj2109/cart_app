@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     ],
       child: MaterialApp(
         theme: lightTheme(),
-        initialRoute: ScreenRoutes.HOMEPAGE,
+        initialRoute: ScreenRoutes.SIGNIN,
         onGenerateRoute: generateRoute,
       ),
     );
@@ -65,7 +65,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ScreenRoutes.Payment:
       return MaterialPageRoute(
         builder: (BuildContext context) {
-          return Transaction_Screen(arguments: settings.arguments);
+          return TransactionScreen(arguments: settings.arguments);
         },
       );
       break;

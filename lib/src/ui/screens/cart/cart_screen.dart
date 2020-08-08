@@ -29,8 +29,6 @@ class _CartScreenState extends State<CartScreen> {
   List<UpiApp> apps;
 
   @override
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
@@ -48,7 +46,6 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: _scaffoldKey,
         appBar: _appbarBuild(),
         body: _bodyBuild(),
       ),
@@ -427,55 +424,58 @@ class _CartScreenState extends State<CartScreen> {
   //     merchantCode: '',
   //   );
   //   print("dsfdsf");
-    
+
   // }
 
-    void _modalBottomSheetMenu() {
+  void _modalBottomSheetMenu() {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
       context: context,
       builder: (builder) {
-            if (apps == null)
-      return Center(child: CircularProgressIndicator());
-    else if (apps.length == 0)
-      return Center(child: Text("No apps available for transaction."));
-    else
-      return Center(
-        child: Wrap(
-          children: apps.map<Widget>((UpiApp app) {
-            return GestureDetector(
-              onTap: () {
-                _transaction = initiateTransaction(app.app);
-
-              },
-              child: Container(
-                height: 100,
-                width: 100,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.memory(
-                      app.icon,
-                      height: 60,
-                      width: 60,
-                    ),
-                    Text(app.name),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      );
+        if (apps == null)
+          return Center(child: CircularProgressIndicator());
+        else if (apps.length == 0)
+          return Center(child: Text("No apps available for transaction."));
+        else
+          return Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Wrap(
+                children: apps.map<Widget>(
+                  (UpiApp app) {
+                    return GestureDetector(
+                      onTap: () {
+                        _transaction = initiateTransaction(app.app);
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.memory(
+                              app.icon,
+                              height: 60,
+                              width: 60,
+                            ),
+                            Text(app.name),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ).toList(),
+              
+            ),
+          );
       },
     );
   }
 
   Future<void> initiateTransaction(String app) async {
-    UpiResponse  txnResponse = await UpiIndia().startTransaction(
+    UpiResponse txnResponse = await UpiIndia().startTransaction(
       app: app,
       receiverUpiId: '7502714189@apl',
       receiverName: 'Packiyaraj',
@@ -483,32 +483,15 @@ class _CartScreenState extends State<CartScreen> {
       transactionNote: 'Not actual. Just an example.',
       amount: 1.00,
       merchantId: "123456",
-
     );
     _homebloc.add(
       CartProductClearEvent(),
     );
-      Navigator.of(context).pushNamed(ScreenRoutes.Payment,arguments: {'error':txnResponse.error,'status':txnResponse.status});
+    Navigator.of(context).pushNamed(ScreenRoutes.Payment,
+        arguments: {'error': txnResponse.error, 'status': txnResponse.status});
   }
 
   _goBack() {
     Navigator.of(context).pop();
-  }
-
-  _showScaffold(String message) {
-    _scaffoldKey.currentState.removeCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(message),
-        duration: new Duration(seconds: 1),
-        action: SnackBarAction(
-          label: AppTextConstants.Dismiss,
-          textColor: AppColors.appBackgroundColor,
-          onPressed: () {
-            _scaffoldKey.currentState.hideCurrentSnackBar();
-          },
-        ),
-      ),
-    );
   }
 }
