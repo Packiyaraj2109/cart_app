@@ -24,7 +24,6 @@ class _CartScreenState extends State<CartScreen> {
   double totalcartamount = 0;
   HomeBloc _homebloc;
 
-  Future<UpiResponse> _transaction;
   UpiIndia _upiIndia = UpiIndia();
   List<UpiApp> apps;
 
@@ -349,12 +348,6 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  _placeOrder(List<ProductDetailsModel> cartFullList) {
-    // cartFullList.clear();
-    // _showScaffold("Order Placed Sucessfully!!!");
-    // Navigator.of(context).pop();
-  }
-
   PreferredSize _appbarBuild() {
     return PreferredSize(
       preferredSize: Size.fromHeight(
@@ -446,7 +439,7 @@ class _CartScreenState extends State<CartScreen> {
                   (UpiApp app) {
                     return GestureDetector(
                       onTap: () {
-                        _transaction = initiateTransaction(app.app);
+                        initiateTransaction(app.app);
                       },
                       child: Container(
                         height: 100,

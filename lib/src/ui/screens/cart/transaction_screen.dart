@@ -36,13 +36,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
   }
 
   Container _bodybuild(BuildContext context) {
-    String url;
+    String status;
     String response;
     if (arguments['error'] == null) {
-      url = AppConfig.successImg;
+      status='Success';
       response = arguments['status'];
     } else {
-      url = AppConfig.failureurl;
+      status = 'Failed';
       response = arguments['error'];
     }
     return Container(
@@ -52,7 +52,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            AppImages.productimage(imageurl: url, width: 150, height: 150),
+            AppImages.paymentStatus(status: status, width: 150, height: 150),
             SizedBox(height: 30),
             Text("${response}",
                 style: Theme.of(context).accentTextTheme.headline5),

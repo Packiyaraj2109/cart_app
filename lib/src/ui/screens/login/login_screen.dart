@@ -228,6 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
             builder: (BuildContext context, LoginState state) {
               if (state is LoginFailedFailedState &&
                   state.userList.isNotEmpty) {
+                    userList=state.userList;
                 return _bottomSheetBody(state.userList);
               }
               return Center(
@@ -328,21 +329,17 @@ class _LoginScreenState extends State<LoginScreen> {
   _loginValidation() {
     String username = _usernameController.text;
     String password = _passwordController.text;
-    if (username == '') {
-      _scaffoldKey.currentState.removeCurrentSnackBar();
+    if (username == '' || password == '') {
       _showScaffold(AppTextConstants.EnterUserName);
-    } else if (password == '') {
-      _scaffoldKey.currentState.removeCurrentSnackBar();
-      _showScaffold(AppTextConstants.EnterPassword);
     } else {
       int index = userList.indexWhere((UserList element) =>
           element.username == username && element.password == password);
       if (index != -1) {
-        _scaffoldKey.currentState.removeCurrentSnackBar();
-        _showScaffold(AppTextConstants.LoginErrorMsg);
-      } else {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(ScreenRoutes.HOMEPAGE, (route) => false);
+      } else {
+
+        _showScaffold(AppTextConstants.LoginErrorMsg);
       }
     }
   }
@@ -386,6 +383,9 @@ class _LoginScreenState extends State<LoginScreen> {
   // }
 
   _showScaffold(String message) {
+    
+     _scaffoldKey.currentState.removeCurrentSnackBar();
+    
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(message),
