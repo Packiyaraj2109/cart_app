@@ -81,10 +81,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     width: 40,
                     height: 40,
-                    child: Icon(
-                      Icons.close,
-                      size: 20.0,
-                      color: AppColors.iconColor2,
+                    child: RotatedBox(
+                      quarterTurns: 2,
+                      child: Icon(
+                        Icons.exit_to_app,
+                        size: 24,
+                        color: AppColors.iconColor2,
+                      ),
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(
@@ -387,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _scaffoldKey.currentState.removeCurrentSnackBar();
   }
 
-   _showScaffold(String message) {
+  _showScaffold(String message) {
     _scaffoldKey.currentState.removeCurrentSnackBar();
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
