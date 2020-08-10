@@ -1,6 +1,5 @@
 import 'package:cart_app/src/assets/styles/app_colors.dart';
 import 'package:cart_app/src/assets/styles/app_images.dart';
-import 'package:cart_app/src/config/app_config.dart';
 import 'package:cart_app/src/constants/app_text_constants.dart';
 import 'package:cart_app/src/ui/navigate/screen_routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,8 +38,13 @@ class _TransactionScreenState extends State<TransactionScreen> {
     String status;
     String response;
     if (arguments['error'] == null) {
+      if (status=='SUCCESS') {
       status='Success';
       response = arguments['status'];
+      } else {
+      status='Failed';
+      response = arguments['status'];
+      }
     } else {
       status = 'Failed';
       response = arguments['error'];
@@ -54,7 +58,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
           children: <Widget>[
             AppImages.paymentStatus(status: status, width: 150, height: 150),
             SizedBox(height: 30),
-            Text("${response}",
+            Text("$response",
                 style: Theme.of(context).accentTextTheme.headline5),
             SizedBox(height: 100),
             Container(

@@ -26,6 +26,9 @@ class AppTextConstants {
   static const String Cancel = 'Cancel';
   static const String WELCOME = 'Welcome!!!';
   static const String LogoutMsg ='Are you sure to Exit?';
+  static const String AvailableUsers = 'Available Users';
+  static const String ExitMsg = 'Are you sure to Exit?';
+  
   // static const String SUCCESS = 'https://wallsheaven.com/photos/B616272770/220/green-check-mark-with-shadow-isolated-on-white-background.webp';
   // static const String FAILURE = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQw-oFvYioBCZMp5YCPBW8IwzeHMTZqHwg7-w&usqp=CAU';
 }

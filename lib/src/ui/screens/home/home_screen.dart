@@ -352,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(AppTextConstants.Logout),
-          content: Text('Are you sure to Exit?'),
+          content: Text(AppTextConstants.ExitMsg),
           actions: <Widget>[
             FlatButton(
               child: Text(

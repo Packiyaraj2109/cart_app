@@ -32,7 +32,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.appthemecolor,
-        appBar: _appbarBuild(context),
+        appBar: _appbarBuild(),
         body: _bodyBuild(),
       ),
     );
@@ -132,7 +132,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  AppBar _appbarBuild(BuildContext context) {
+  AppBar _appbarBuild() {
     return AppBar(
       backgroundColor: AppColors.appthemecolor,
       centerTitle: true,

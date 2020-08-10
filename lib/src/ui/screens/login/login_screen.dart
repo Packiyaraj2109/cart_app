@@ -59,154 +59,158 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  SingleChildScrollView _bodyBuild() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 8,
-          right: 8,
-          bottom: 16,
-        ),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                AppTextConstants.WELCOME,
-                style: Theme.of(context).primaryTextTheme.headline6,
-              ),
-            ),
-            AppImages.appLogo2(
-              width: double.infinity,
-              height: 320,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(
-                  Radius.circular(10),
+  Container _bodyBuild() {
+    return Container(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 16.0,
+            left: 8,
+            right: 8,
+            bottom: 16,
+          ),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  AppTextConstants.WELCOME,
+                  style: Theme.of(context).primaryTextTheme.headline6,
                 ),
-                color: AppColors.gridbackground,
-                boxShadow: [
-                  new BoxShadow(
-                    color: AppColors.boxshadowcolor,
-                    blurRadius: 5.0,
-                  ),
-                ],
               ),
-              width: double.infinity,
-              padding: EdgeInsets.only(
-                left: 24,
-                right: 24,
-                top: 16,
-                bottom: 16,
+              AppImages.appLogo2(
+                width: double.infinity,
+                height: 320,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    AppTextConstants.Login_MSG,
-                    style: Theme.of(context).accentTextTheme.headline5,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: new BorderRadius.all(
+                    Radius.circular(10),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16,
+                  color: AppColors.gridbackground,
+                  boxShadow: [
+                    new BoxShadow(
+                      color: AppColors.boxshadowcolor,
+                      blurRadius: 5.0,
                     ),
-                    child: Theme(
-                      data: new ThemeData(
-                        primaryColor: AppColors.tabunselected,
+                  ],
+                ),
+                width: double.infinity,
+                padding: EdgeInsets.only(
+                  left: 24,
+                  right: 24,
+                  top: 16,
+                  bottom: 16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      AppTextConstants.Login_MSG,
+                      style: Theme.of(context).accentTextTheme.headline5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 16,
                       ),
-                      child: TextField(
-                          controller: _usernameController,
-                          inputFormatters: [
-                            new WhitelistingTextInputFormatter(RegExp(reg)),
-                          ],
-                          // controller: _userNameController,
-                          cursorColor: AppColors.tabunselected,
-                          decoration: InputDecoration(
-                            hintText: AppTextConstants.USER_NAME,
-                          ),
-                          keyboardType: TextInputType.multiline),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16,
-                      bottom: 32,
-                    ),
-                    child: Theme(
-                      data: new ThemeData(
-                        primaryColor: AppColors.tabunselected,
-                      ),
-                      child: TextField(
-                          controller: _passwordController,
-                          obscureText: passwordVisible,
-                          decoration: InputDecoration(
-                            hintText: AppTextConstants.PASSWORD,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                passwordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: AppColors.appBackgroundColor,
-                              ),
-                              onPressed: _passwordVisible,
-                            ),
-                          ),
-                          inputFormatters: [
-                            new WhitelistingTextInputFormatter(RegExp(reg)),
-                          ],
-                          // controller: _userNameController,
-                          cursorColor: AppColors.tabunselected,
-                          keyboardType: TextInputType.visiblePassword),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () => _modalBottomSheetMenu(),
-                        child: RichText(
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: "ⓘ ",
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline4,
-                              ),
-                              TextSpan(
-                                text: "Users List",
-                                style:
-                                    Theme.of(context).accentTextTheme.headline3,
-                              ),
+                      child: Theme(
+                        data: new ThemeData(
+                          primaryColor: AppColors.tabunselected,
+                        ),
+                        child: TextField(
+                            controller: _usernameController,
+                            inputFormatters: [
+                              new WhitelistingTextInputFormatter(RegExp(reg)),
                             ],
-                          ),
-                        ),
+                            // controller: _userNameController,
+                            cursorColor: AppColors.tabunselected,
+                            decoration: InputDecoration(
+                              hintText: AppTextConstants.USER_NAME,
+                            ),
+                            keyboardType: TextInputType.multiline),
                       ),
-                      Container(
-                        width: 120,
-                        child: RaisedButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              8.0,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 16,
+                        bottom: 32,
+                      ),
+                      child: Theme(
+                        data: new ThemeData(
+                          primaryColor: AppColors.tabunselected,
+                        ),
+                        child: TextField(
+                            controller: _passwordController,
+                            obscureText: passwordVisible,
+                            decoration: InputDecoration(
+                              hintText: AppTextConstants.PASSWORD,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  passwordVisible
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: AppColors.appBackgroundColor,
+                                ),
+                                onPressed: _passwordVisible,
+                              ),
+                            ),
+                            inputFormatters: [
+                              new WhitelistingTextInputFormatter(RegExp(reg)),
+                            ],
+                            // controller: _userNameController,
+                            cursorColor: AppColors.tabunselected,
+                            keyboardType: TextInputType.visiblePassword),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => _modalBottomSheetMenu(),
+                          child: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "ⓘ ",
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline4,
+                                ),
+                                TextSpan(
+                                  text: AppTextConstants.AvailableUsers,
+                                  style: Theme.of(context)
+                                      .accentTextTheme
+                                      .headline3,
+                                ),
+                              ],
                             ),
                           ),
-                          color: AppColors.appBackgroundColor,
-                          onPressed: () => _loginValidation(),
-                          //_dataFetch,
-                          child: Text(
-                            AppTextConstants.LOGIN,
-                            style: Theme.of(context).accentTextTheme.headline6,
+                        ),
+                        Container(
+                          width: 120,
+                          child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                8.0,
+                              ),
+                            ),
+                            color: AppColors.appBackgroundColor,
+                            onPressed: () => _loginValidation(),
+                            //_dataFetch,
+                            child: Text(
+                              AppTextConstants.LOGIN,
+                              style:
+                                  Theme.of(context).accentTextTheme.headline6,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -228,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
             builder: (BuildContext context, LoginState state) {
               if (state is LoginFailedFailedState &&
                   state.userList.isNotEmpty) {
-                    userList=state.userList;
+                userList = state.userList;
                 return _bottomSheetBody(state.userList);
               }
               return Center(
@@ -250,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         children: <Widget>[
           Center(
-              child: Text("Available Users",
+              child: Text(AppTextConstants.AvailableUsers,
                   style: Theme.of(context).primaryTextTheme.headline5)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,7 +342,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.of(context)
             .pushNamedAndRemoveUntil(ScreenRoutes.HOMEPAGE, (route) => false);
       } else {
-
         _showScaffold(AppTextConstants.LoginErrorMsg);
       }
     }
@@ -383,9 +386,8 @@ class _LoginScreenState extends State<LoginScreen> {
   // }
 
   _showScaffold(String message) {
-    
-     _scaffoldKey.currentState.removeCurrentSnackBar();
-    
+    _scaffoldKey.currentState.removeCurrentSnackBar();
+
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(message),
