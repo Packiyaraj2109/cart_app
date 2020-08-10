@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     // (BuildContext context) => HomeBloc(),
     ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: lightTheme(),
         initialRoute: ScreenRoutes.SIGNIN,
         onGenerateRoute: generateRoute,
